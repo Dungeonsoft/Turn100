@@ -6,25 +6,28 @@ using UnityEngine;
 public class IngameLoadingPanelScript : MonoBehaviour
 {
     public Transform bgImage;
-    public GameObject InGames;
+    public GameObject inGames;
 
-    private bool isStart = false;
+#pragma warning disable 414
+    private bool _isStart = false;
+#pragma warning restore 414
 
     public void UserStart()
     {
-        isStart = true;
+        _isStart = true;
         bgImage.localScale = Vector3.one;
     }
 
     private void Update()
     {
-        bgImage.localScale += Vector3.one * Time.deltaTime;
+        if (_isStart == false) return;
+        bgImage.localScale += 0.1f * Time.deltaTime*Vector3.one;
 
         if (bgImage.localScale.x >= 1.4)
         {
             
-            InGames.SetActive(true);
-            isStart = false;
+            inGames.SetActive(true);
+            _isStart = false;
             this.gameObject.SetActive(false);
         }
     }
